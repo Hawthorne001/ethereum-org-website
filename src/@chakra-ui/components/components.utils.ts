@@ -2,7 +2,6 @@ import merge from "lodash/merge"
 import { cssVar, SystemStyleObject, theme } from "@chakra-ui/react"
 
 const {
-  Accordion: accordionDefaultTheme,
   Alert: alertDefaultTheme,
   Avatar: avatarDefaultTheme,
   Badge: badgeDefaultTheme,
@@ -10,7 +9,6 @@ const {
   Checkbox: checkboxDefaultTheme,
   CloseButton: closeButtonDefaultTheme,
   Code: codeDefaultTheme,
-  Divider: dividerDefaultTheme,
   Drawer: drawerDefaultTheme,
   Form: formDefaultTheme,
   FormLabel: formLabelDefaultTheme,
@@ -31,7 +29,6 @@ const {
 } = theme.components
 
 export {
-  accordionDefaultTheme,
   alertDefaultTheme,
   avatarDefaultTheme,
   badgeDefaultTheme,
@@ -39,7 +36,6 @@ export {
   checkboxDefaultTheme,
   closeButtonDefaultTheme,
   codeDefaultTheme,
-  dividerDefaultTheme,
   drawerDefaultTheme,
   formDefaultTheme,
   formLabelDefaultTheme,

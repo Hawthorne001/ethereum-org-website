@@ -51,7 +51,7 @@ Um contrato inteligente é um código presente na blockchain Ethereum e funciona
 
 **Scaffold-ETH _: experimente rápido com Solidity usando um front-end que se adapta ao seu contrato inteligente._**
 
-- [GitHub](https://github.com/austintgriffith/scaffold-eth)
+- [GitHub](https://github.com/scaffold-eth/scaffold-eth-2)
 - [Exemplo de dapp](https://punkwallet.io/)
 
 **Crie um aplicativo Eth_: crie aplicativos com a tecnologia Ethereum apenas com um comando._**
@@ -74,11 +74,17 @@ Um contrato inteligente é um código presente na blockchain Ethereum e funciona
 - [Documentação](https://portal.thirdweb.com/)
 - [GitHub](https://github.com/thirdweb-dev/)
 
+**Crossmint - _Plataforma de desenvolvimento web3 de nível empresarial para implantar contratos inteligentes, habilitar pagamentos com cartão de crédito e entre cadeias, e usar APIs para criar, distribuir, vender, armazenar e editar NFTs._**
+
+- [crossmint.com](https://www.crossmint.com)
+- [Documentação](https://docs.crossmint.com)
+- [Discord](https://discord.com/invite/crossmint)
+
 ## Leitura adicional {#further-reading}
 
 - [Ver dapps](/dapps)
 - [A arquitetura de um aplicativo Web 3.0](https://www.preethikasireddy.com/post/the-architecture-of-a-web-3-0-application) - _Preethi Kasireddy_
-- [Um guia de 2021 para aplicativos descentralizados](https://limechain.tech/blog/what-are-dapps-the-2021-guide/) - _LimeChain_
+- [Um guia de 2021 para aplicativos descentralizados](https://limechain. tech/blog/what-are-dapps-the-2021-guide/) - _LimeChain_
 - [O que são aplicativos descentralizados?](https://www.gemini.com/cryptopedia/decentralized-applications-defi-dapps) - _Gemini_
 - [Dapps populares](https://www.alchemy.com/dapps) - _Alchemy_
 

@@ -16,8 +16,8 @@ const scoreBattleTested = (product: Product): 2 | 1 | 0 => {
   return product.battleTested === FlagType.VALID
     ? 2
     : product.battleTested === FlagType.CAUTION
-    ? 1
-    : 0
+      ? 1
+      : 0
 }
 
 const scoreTrustless = (product: Product): 1 | 0 => {
@@ -74,14 +74,8 @@ const getBattleTestedFlag = (
   halfYearAgo.setDate(now.getDate() - 183)
   oneYearAgo.setDate(now.getDate() - 365)
 
-  if (halfYearAgo > launchDate) {
-    return FlagType.CAUTION
-  }
-
-  if (oneYearAgo > launchDate) {
-    return FlagType.VALID
-  }
-
+  if (oneYearAgo > launchDate) return FlagType.VALID
+  if (halfYearAgo > launchDate) return FlagType.CAUTION
   return FlagType.WARNING
 }
 

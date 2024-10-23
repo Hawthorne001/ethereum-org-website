@@ -87,11 +87,20 @@ Imagine you’re at the airport security checkpoint. There are two types of chec
 1. Manual Checkpoints — operated by officials who manually check all the details of your ticket and identity before handing over the boarding pass.
 2. Self Check-In — operated by a machine where you put in your flight details and receive the boarding pass if everything checks out.
 
-Manual checkpoints are similar to a trusted model as it depends upon a third party, i.e., the officials, for its operations. As a user, you trust the officials to make the right decisions and use your private information correctly.
+A manual checkpoint is similar to a trusted model as it depends upon a third party, i.e., the officials, for its operations. As a user, you trust the officials to make the right decisions and use your private information correctly.
 
 Self check-in is similar to a trustless model as it removes the operator's role and uses technology for its operations. Users always remain in control of their data and don’t have to trust a third party with their private information.
 
 Many bridging solutions adopt models between these two extremes with varying degrees of trustlessness.
+
+<Divider />
+
+## Use bridge {#use-bridge}
+
+Using bridges allows you to move your assets across different blockchains. Here are some resources that can help you find and use bridges:
+
+- **[L2BEAT Bridges Summary](https://l2beat.com/bridges/summary) & [L2BEAT Bridges Risk Analysis](https://l2beat.com/bridges/risk)**: A comprehensive summary of various bridges, including details on market share, bridge type, and destination chains. L2BEAT also has a risk analysis for bridges, helping users make informed decisions when selecting a bridge.
+- **[DefiLlama Bridge Summary](https://defillama.com/bridges/Ethereum)**: A summary of bridge volumes across Ethereum networks.
 
 <Divider />
 

@@ -1,14 +1,14 @@
 import * as React from "react"
-import { Center, Flex, SimpleGrid, VStack } from "@chakra-ui/react"
-import { Meta, StoryObj } from "@storybook/react"
+import { Center, Flex, Icon, SimpleGrid } from "@chakra-ui/react"
+import type { Meta, StoryObj } from "@storybook/react"
 
-import { EthHomeIcon } from "./EthHomeIcon"
-import { FeedbackGlyphIcon } from "./FeedbackGlyphIcon"
-import { FeedbackThumbsUpIcon } from "./FeedbackThumbsUpIcon"
+import EthHomeIcon from "./eth-home-icon.svg"
+import FeedbackThumbsUpIcon from "./feedback-thumbs-up-icon.svg"
 import { HighlightDarkIcon } from "./HighlightDarkIcon"
 import { HighlightIcon } from "./HighlightIcon"
 import {
   CorrectIcon,
+  GreenTickIcon,
   IncorrectIcon,
   StarConfettiIcon,
   TrophyIcon,
@@ -32,15 +32,20 @@ import {
   AuditedIcon,
   AvadoGlyphIcon,
   BattleTestedIcon,
-  BloxstakingGlyphIcon,
+  BedrockGlyphIcon,
   BugBountyIcon,
   CautionProductGlyphIcon,
+  ChainLaboGlyphIcon,
+  ConsensysStakingGlyphIcon,
   DefaultOpenSourceGlyphIcon,
   DockerGlyphIcon,
   EconomicalIcon,
   EthpoolGlyphIcon,
+  EverstakeGlyphIcon,
+  FigmentGlyphIcon,
   GreenCheckProductGlyphIcon,
   KilnGlyphIcon,
+  LaunchnodesGlyphIcon,
   LidoGlyphIcon,
   LiquidityTokenIcon,
   MultiClientIcon,
@@ -50,6 +55,8 @@ import {
   RocketPoolGlyphIcon,
   RockXGlyphIcon,
   SelfCustodyIcon,
+  SenseiNodeGlyphIcon,
+  SquidGlyphIcon,
   StafiGlyphIcon,
   StakefishGlyphIcon,
   StakewiseGlyphIcon,
@@ -89,14 +96,17 @@ import {
   WithdrawCryptoIcon,
 } from "./wallets"
 
-export default {
+const meta = {
+  component: Icon,
   title: "Atoms / Media & Icons / Icons",
-  component: VStack,
-} satisfies Meta<typeof VStack>
+} satisfies Meta<typeof Icon>
+
+export default meta
 
 const iconsDefinitions = [
   CorrectIcon,
   IncorrectIcon,
+  GreenTickIcon,
   StarConfettiIcon,
   TrophyIcon,
   DappnodeIcon,
@@ -115,17 +125,22 @@ const iconsDefinitions = [
   AuditedIcon,
   AvadoGlyphIcon,
   BattleTestedIcon,
-  BloxstakingGlyphIcon,
+  BedrockGlyphIcon,
   BugBountyIcon,
   CautionProductGlyphIcon,
+  ChainLaboGlyphIcon,
+  ConsensysStakingGlyphIcon,
   StakingDappnodeGlyphIcon,
   DefaultOpenSourceGlyphIcon,
   DockerGlyphIcon,
   EconomicalIcon,
   EthpoolGlyphIcon,
+  EverstakeGlyphIcon,
+  FigmentGlyphIcon,
   GreenCheckProductGlyphIcon,
   P2PGlyphIcon,
   KilnGlyphIcon,
+  LaunchnodesGlyphIcon,
   LidoGlyphIcon,
   LiquidityTokenIcon,
   MultiClientIcon,
@@ -134,6 +149,7 @@ const iconsDefinitions = [
   RocketPoolGlyphIcon,
   RockXGlyphIcon,
   SelfCustodyIcon,
+  SenseiNodeGlyphIcon,
   StafiGlyphIcon,
   StakefishGlyphIcon,
   StakewiseGlyphIcon,
@@ -143,6 +159,7 @@ const iconsDefinitions = [
   StakingGlyphEtherCircleIcon,
   StakingGlyphTokenWalletIcon,
   StereumGlyphIcon,
+  SquidGlyphIcon,
   TrustlessIcon,
   UnknownProductGlyphIcon,
   WagyuGlyphIcon,
@@ -169,7 +186,6 @@ const iconsDefinitions = [
   SwapIcon,
   WithdrawCryptoIcon,
   EthHomeIcon,
-  FeedbackGlyphIcon,
   FeedbackThumbsUpIcon,
   HighlightDarkIcon,
   HighlightIcon,
@@ -178,9 +194,9 @@ const iconsDefinitions = [
 iconsDefinitions.sort((a, b) =>
   (a?.displayName || "") > (b?.displayName || "") ? 1 : -1
 )
-const items = iconsDefinitions.map((IconDef) => (
+const items = iconsDefinitions.map((IconDef, idx) => (
   <Flex
-    key={IconDef.displayName}
+    key={idx}
     direction="column"
     gap={4}
     p={4}
@@ -189,13 +205,18 @@ const items = iconsDefinitions.map((IconDef) => (
     borderColor="background.highlight"
   >
     <Center>
-      <IconDef w="50px" h="50px" />
+      <IconDef
+        className="h-[50px] w-[50px]"
+        // TODO: remove the following two props when migrations are complete
+        w="50px"
+        h="50px"
+      />
     </Center>
     <Center>{IconDef.displayName}</Center>
   </Flex>
 ))
 
-export const Icons: StoryObj<typeof VStack> = {
+export const Icons: StoryObj<typeof meta> = {
   render: () => {
     return <SimpleGrid columns={[2, 2, 3, 5]}>{items}</SimpleGrid>
   },

@@ -1,7 +1,6 @@
-import path from "path"
-
-import type { StorybookConfig } from "@storybook/nextjs"
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"
 import { propNames } from "@chakra-ui/react"
+import type { StorybookConfig } from "@storybook/nextjs"
 
 /**
  * Note regarding package.json settings related to Storybook:
@@ -16,13 +15,23 @@ import { propNames } from "@chakra-ui/react"
  */
 
 const config: StorybookConfig = {
-  stories: ["../src/components/**/*.stories.{ts,tsx}"],
+  stories: [
+    "../src/components/**/*.stories.{ts,tsx}",
+    "../src/@chakra-ui/stories/*.stories.tsx",
+    "../src/layouts/stories/*.stories.tsx",
+  ],
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        backgrounds: false,
+      },
+    },
     "@storybook/addon-interactions",
-    "@chakra-ui/storybook-addon",
     "storybook-react-i18next",
+    "@storybook/addon-themes",
+    "@chromatic-com/storybook",
   ],
   staticDirs: ["../public"],
   framework: {
@@ -37,10 +46,33 @@ const config: StorybookConfig = {
       disable: true,
     },
   },
-  webpackFinal: async (config: any) => {
-    // Add path aliases
-    config.resolve.alias["@"] = path.resolve(__dirname, "../src")
-    config.resolve.alias["@/public"] = path.resolve(__dirname, "../public")
+  webpackFinal: async (config) => {
+    config.module = config.module || {}
+    config.module.rules = config.module.rules || []
+
+    if (config.resolve) {
+      config.resolve.plugins = [
+        ...(config.resolve.plugins || []),
+        new TsconfigPathsPlugin({
+          extensions: config.resolve.extensions,
+        }),
+      ]
+    }
+
+    // This modifies the existing image rule to exclude .svg files
+    // since you want to handle those files with @svgr/webpack
+    const imageRule = config.module.rules.find((rule) =>
+      rule?.["test"]?.test(".svg")
+    )
+    if (imageRule) {
+      imageRule["exclude"] = /\.svg$/
+    }
+
+    // Configure .svg files to be loaded with @svgr/webpack
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    })
 
     return config
   },
@@ -65,6 +97,8 @@ const config: StorybookConfig = {
         return !(isStyledSystemProp || isHTMLElementProp)
       },
     },
+
+    reactDocgen: "react-docgen-typescript",
   },
 }
 export default config

@@ -182,7 +182,7 @@ How much users pay for transactions on ZK-rollups is dependent on the gas fee, j
 
 2. **Data publication**: ZK-rollups publish state data for every transaction to Ethereum as `calldata`. `calldata` costs are currently governed by [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559), which stipulates a cost of 16 gas for non-zero bytes and 4 gas for zero bytes of `calldata`, respectively. The cost paid on each transaction is influenced by how much `calldata` needs to be posted on-chain for it.
 
-3. **L2 operator fees**: This is the amount paid to the rollup operator as compensation for computational costs incurred in processing transactions, much like miner fees on Ethereum.
+3. **L2 operator fees**: This is the amount paid to the rollup operator as compensation for computational costs incurred in processing transactions, much like [transaction "priority fees (tips)"](/developers/docs/gas/#how-are-gas-fees-calculated) on Ethereum Mainnet.
 
 4. **Proof generation and verification**: ZK-rollup operators must produce validity proofs for transaction batches, which is resource-intensive. Verifying zero-knowledge proofs on Mainnet also costs gas (~ 500,000 gas).
 
@@ -240,9 +240,11 @@ Projects working on zkEVMs include:
 
 - **[Taiko](https://taiko.xyz)** - _Taiko is a decentralized, Ethereum-equivalent ZK-rollup (a [Type 1 ZK-EVM](https://vitalik.eth.limo/general/2022/08/04/zkevm.html))._
 
-- **[ZKSync](https://docs.zksync.io/)** - _ZkSync Era is an EVM-compatible ZK Rollup built by Matter Labs, powered by its own zkEVM._
+- **[ZKsync](https://docs.zksync.io/)** - _ZKsync Era is an EVM-compatible ZK Rollup built by Matter Labs, powered by its own zkEVM._
 
 - **[Starknet](https://starkware.co/starknet/)** - _StarkNet is an EVM-compatible layer 2 scaling solution built by StarkWare._
+
+- **[Morph](https://www.morphl2.io/)** - _Morph is a hybrid rollup scaling solution that utilizes zk-proof to address the Layer 2 state challenge issue._
 
 ## Further reading on ZK-rollups reading {#further-reading-on-zk-rollups}
 
@@ -250,6 +252,7 @@ Projects working on zkEVMs include:
 - [What are zero-knowledge rollups?](https://alchemy.com/blog/zero-knowledge-rollups)
 - [STARKs vs SNARKs](https://consensys.net/blog/blockchain-explained/zero-knowledge-proofs-starks-vs-snarks/)
 - [What is a zkEVM?](https://www.alchemy.com/overviews/zkevm)
+- [ZK-EVM types: Ethereum-equivalent, EVM-equivalent, Type 1, Type 4, and other cryptic buzzwords](https://taiko.mirror.xyz/j6KgY8zbGTlTnHRFGW6ZLVPuT0IV0_KmgowgStpA0K4)
 - [Intro to zkEVM](https://hackmd.io/@yezhang/S1_KMMbGt)
 - [Awesome-zkEVM resources](https://github.com/LuozhuZhang/awesome-zkevm)
 - [ZK-SNARKS under the hood](https://vitalik.eth.limo/general/2017/02/01/zk_snarks.html)

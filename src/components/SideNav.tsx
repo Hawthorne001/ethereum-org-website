@@ -1,7 +1,7 @@
-import { ReactNode, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useTranslation } from "next-i18next"
-import { MdExpandMore } from "react-icons/md"
+import { MdChevronRight } from "react-icons/md"
 import { Box, HStack, Icon } from "@chakra-ui/react"
 
 import { ChildOnlyProp } from "@/lib/types"
@@ -13,13 +13,12 @@ import docLinks from "../data/developer-docs-links.yaml"
 
 export const dropdownIconContainerVariant = {
   open: {
-    rotate: 0,
-    y: 3,
+    rotate: 90,
     transition: {
       duration: 0.4,
     },
   },
-  closed: { rotate: -90, y: 0 },
+  closed: { rotate: 0 },
 }
 
 const innerLinksVariants = {
@@ -73,28 +72,28 @@ export type NavLinkProps = {
 const NavLink = ({ item, path, isTopLevel }: NavLinkProps) => {
   const { t } = useTranslation("page-developers-docs")
   const isLinkInPath =
-    isTopLevel || path.includes(item.to) || path.includes(item.path)
+    isTopLevel || path.includes(item.href) || path.includes(item.path)
   const [isOpen, setIsOpen] = useState<boolean>(isLinkInPath)
 
   useEffect(() => {
     // Only set on items that contain a link
     // Otherwise items w/ `path` would re-open every path change
-    if (item.to) {
-      const shouldOpen = path.includes(item.to) || path.includes(item.path)
+    if (item.href) {
+      const shouldOpen = path.includes(item.href) || path.includes(item.path)
       setIsOpen(shouldOpen)
     }
-  }, [path, item.path, item.to])
+  }, [path, item.path, item.href])
 
   if (item.items) {
     return (
       <Box>
         <LinkContainer>
-          {item.to && (
-            <SideNavLink to={item.to} isPartiallyActive={false}>
+          {item.href && (
+            <SideNavLink href={item.href} isPartiallyActive={false}>
               {t(item.id)}
             </SideNavLink>
           )}
-          {!item.to && (
+          {!item.href && (
             <Box w="full" cursor="pointer" onClick={() => setIsOpen(!isOpen)}>
               {t(item.id)}
             </Box>
@@ -105,8 +104,9 @@ const NavLink = ({ item, path, isTopLevel }: NavLinkProps) => {
             variants={dropdownIconContainerVariant}
             animate={isOpen ? "open" : "closed"}
             cursor="pointer"
+            display="flex"
           >
-            <Icon as={MdExpandMore} boxSize={6} color="secondary" />
+            <Icon as={MdChevronRight} boxSize={6} color="secondary" />
           </Box>
         </LinkContainer>
         <Box
@@ -130,7 +130,7 @@ const NavLink = ({ item, path, isTopLevel }: NavLinkProps) => {
   return (
     <Box>
       <LinkContainer>
-        <SideNavLink to={item.to} isPartiallyActive={false}>
+        <SideNavLink href={item.href} isPartiallyActive={false}>
           {t(item.id)}
         </SideNavLink>
       </LinkContainer>

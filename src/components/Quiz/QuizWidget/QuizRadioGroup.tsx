@@ -4,7 +4,6 @@ import {
   Box,
   chakra,
   ChakraProps,
-  Circle,
   HStack,
   Stack,
   Text,
@@ -15,17 +14,30 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react"
 
-import type { AnswerKey, TranslationKey } from "@/lib/types"
+import type {
+  AnswerChoice,
+  AnswerKey,
+  Question,
+  TranslationKey,
+} from "@/lib/types"
 
-import { useQuizWidgetContext } from "./context"
+import { cn } from "@/lib/utils/cn"
 
-export const QuizRadioGroup = () => {
-  const {
-    questions,
-    currentQuestionIndex,
-    answerStatus,
-    setCurrentQuestionAnswerChoice,
-  } = useQuizWidgetContext()
+import type { AnswerStatus } from "./useQuizWidget"
+
+type QuizRadioGroupProps = {
+  questions: Question[]
+  currentQuestionIndex: number
+  answerStatus: AnswerStatus
+  setCurrentQuestionAnswerChoice: (answer: AnswerChoice | null) => void
+}
+
+export const QuizRadioGroup = ({
+  questions,
+  currentQuestionIndex,
+  answerStatus,
+  setCurrentQuestionAnswerChoice,
+}: QuizRadioGroupProps) => {
   const { t } = useTranslation("learn-quizzes")
 
   const handleSelection = (answerId: AnswerKey) => {
@@ -43,7 +55,12 @@ export const QuizRadioGroup = () => {
     onChange: handleSelection,
   })
 
-  const { answers, correctAnswerId, prompt } = questions[currentQuestionIndex]
+  const {
+    answers,
+    correctAnswerId,
+    prompt,
+    id: questionId,
+  } = questions[currentQuestionIndex]
 
   // Memoized values
   const explanation = useMemo<TranslationKey>(() => {
@@ -61,7 +78,7 @@ export const QuizRadioGroup = () => {
     <Box as="fieldset" w="full" {...getRootProps()}>
       <Text
         as="legend"
-        textAlign={{ base: "center", md: "start" }}
+        textAlign="center"
         fontWeight="700"
         size="2xl"
         w="full"
@@ -73,32 +90,38 @@ export const QuizRadioGroup = () => {
         {t(prompt)}
       </Text>
 
-      <Stack spacing="4">
-        {answers.map(({ id, label }, idx) => {
-          const display =
-            !answerStatus || id === selectedAnswer ? "inline-flex" : "none"
+      <Box
+        px={{ base: "0", md: "12", lg: "16" }}
+        data-testid="question-group"
+        id={questionId}
+      >
+        <Stack spacing="4">
+          {answers.map(({ id, label }, idx) => {
+            const display =
+              !answerStatus || id === selectedAnswer ? "inline-flex" : "none"
 
-          return (
-            <Box key={id} display={display}>
-              <CustomRadio
-                label={t(label)}
-                isAnswerVisible={!!answerStatus}
-                isSelectedCorrect={isSelectedCorrect}
-                index={idx}
-                {...getRadioProps({ value: id })}
-              />
-            </Box>
-          )
-        })}
-      </Stack>
-
-      {!!answerStatus && (
-        <Stack spacing="2" mt="6">
-          <Text fontWeight="bold">{t("explanation")}</Text>
-
-          <Text m={0}>{t(explanation)}</Text>
+            return (
+              <Box key={id} display={display}>
+                <CustomRadio
+                  label={t(label)}
+                  isAnswerVisible={!!answerStatus}
+                  isSelectedCorrect={isSelectedCorrect}
+                  index={idx}
+                  {...getRadioProps({ value: id })}
+                />
+              </Box>
+            )
+          })}
         </Stack>
-      )}
+
+        {!!answerStatus && (
+          <Stack spacing="2" mt="6">
+            <Text fontWeight="bold">{t("explanation")}</Text>
+
+            <Text m={0}>{t(explanation)}</Text>
+          </Stack>
+        )}
+      </Box>
     </Box>
   )
 }
@@ -124,7 +147,7 @@ const CustomRadio = ({
   })
 
   const buttonBg = useMemo<string>(() => {
-    if (!state.isChecked) return "body.inverted"
+    if (!state.isChecked) return "background.highlight"
     if (!isAnswerVisible) return "primary.base"
     if (!isSelectedCorrect) return "error.base"
     return "success.base"
@@ -135,10 +158,7 @@ const CustomRadio = ({
   const getAnswerColor = (): ChakraProps["bg"] =>
     isSelectedCorrect ? "success.base" : "error.base"
 
-  const controlFocusProps: ChakraProps = {
-    bg: isAnswerVisible ? "white" : "primary.pressed",
-    color: isAnswerVisible ? getAnswerColor() : undefined,
-  }
+  const radioInputProps = getInputProps({ id: INPUT_ID })
 
   return (
     <>
@@ -149,6 +169,8 @@ const CustomRadio = ({
         w="full"
       >
         <HStack
+          data-testid="quiz-question-answer"
+          id={radioInputProps.value}
           {...getRadioProps()}
           // Override: `aria-hidden` is marked true in `getRadioProps`
           aria-hidden="false"
@@ -162,26 +184,28 @@ const CustomRadio = ({
             outline: isAnswerVisible ? "none" : `1px solid ${primaryBaseColor}`,
           }}
           _checked={{
-            bg: !isAnswerVisible ? "primary.base" : getAnswerColor(),
+            bg: !isAnswerVisible ? "primary.action" : getAnswerColor(),
             color: "white",
           }}
           data-group
+          className="group"
         >
-          <Circle
-            size="6"
-            bg="disabled"
-            color="white"
-            _groupHover={controlFocusProps}
-            _groupChecked={controlFocusProps}
+          <div
+            className={cn(
+              "grid aspect-square size-6 place-items-center rounded-full bg-disabled text-white group-hover:bg-primary-action",
+              "group-data-[checked]:bg-white group-data-[checked]:text-primary-action",
+              isAnswerVisible &&
+                (isSelectedCorrect ? "!text-success" : "!text-error")
+            )}
           >
-            <Text fontWeight="700" fontSize="lg" lineHeight="none">
+            <p className="text-lg font-bold leading-none">
               {String.fromCharCode(97 + index).toUpperCase()}
-            </Text>
-          </Circle>
+            </p>
+          </div>
           <span>{label}</span>
         </HStack>
       </chakra.label>
-      <input {...getInputProps({ id: INPUT_ID })} />
+      <input {...radioInputProps} />
     </>
   )
 }

@@ -1,9 +1,11 @@
 import { ComponentProps } from "react"
-import { Box, Text } from "@chakra-ui/react"
 
-import InlineLink from "@/components/Link"
-import OldHeading from "@/components/OldHeading"
+import IdAnchor from "@/components/IdAnchor"
 import Translation from "@/components/Translation"
+import { Stack } from "@/components/ui/flex"
+import InlineLink from "@/components/ui/Link"
+
+import { cn } from "@/lib/utils/cn"
 
 import { DEFAULT_GLOSSARY_NS } from "@/lib/constants"
 
@@ -24,36 +26,30 @@ const GlossaryDefinition = ({
   size = "md",
   options = { ns: DEFAULT_GLOSSARY_NS },
 }: GlossaryDefinitionProps) => {
-  const headingStyles =
-    size === "sm"
-      ? { fontSize: "md", mt: 0, mb: 2 }
-      : { fontSize: { base: "xl", md: "2xl" } }
-
-  const textStyles = size === "sm" ? { mb: 0 } : {}
+  const textClasses = size === "sm" ? "mb-0" : ""
 
   return (
-    <Box textAlign="start">
-      <OldHeading as="h3" lineHeight={1.4} id={term} {...headingStyles}>
+    <Stack className="mb-8 items-stretch gap-4 text-start">
+      <h4
+        className={term ? "group relative scroll-mt-28" : ""}
+        {...(term ? { "data-group": true, id: term } : {})}
+      >
+        <IdAnchor id={term} />
         <Translation
           id={term + "-term"}
           options={options}
           transform={components}
         />
-      </OldHeading>
-      {/**
-       * `as="span"` prevents hydration warnings for strings that contain
-       * elements that cannot be nested inside `p` tags, like `ul` tags
-       * (found in some Glossary definition).
-       * TODO: Develop a better solution to handle this case.
-       */}
-      <Text as="span" {...textStyles}>
+      </h4>
+
+      <div className={cn("inline-block", textClasses)}>
         <Translation
           id={term + "-definition"}
           options={options}
           transform={components}
         />
-      </Text>
-    </Box>
+      </div>
+    </Stack>
   )
 }
 

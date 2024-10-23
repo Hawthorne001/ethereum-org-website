@@ -1,20 +1,15 @@
-import ReactSelect, { ActionMeta, GroupBase, Props } from "react-select"
+import ReactSelect, {
+  type ActionMeta,
+  type GroupBase,
+  type Props,
+} from "react-select"
+
 import {
-  createStylesContext,
-  type SystemStyleObject,
-  ThemingProps,
-  useMultiStyleConfig,
-} from "@chakra-ui/react"
-
-import { components, reactSelectAnatomyKeys } from "./innerComponents"
-
-const [ReactSelectStylesProvider, useReactSelectStyles] =
-  createStylesContext("ReactSelect")
-
-export const useSelectStyles = useReactSelectStyles as () => Record<
-  (typeof reactSelectAnatomyKeys)[number],
-  SystemStyleObject
->
+  components,
+  SelectStylesContext,
+  type SelectVariants,
+  selectVariants,
+} from "./innerComponents"
 
 /**
  * Type for onChange handler in the `Select` component
@@ -35,11 +30,11 @@ export type SelectOnChange<Option> = (
 /**
  * Custom Built Version of the `react-select` single-select component.
  *
- * A styles provider wraps the original `Select` to send Chakra styles straight to the
+ * A styles provider wraps the original `Select` to send Tailwind styles straight to the
  * custom internal components which are code-split into their own file.
  * See `./innerComponents.tsx`
  *
- * You can use the Chakra `variant` prop to declare a variant from the extended theme,
+ * You can use the `variant` prop from tailwind-variants to declare a variant from the extended theme,
  * and use any valid props sent to the `Select` component.
  *
  * @see {@link https://react-select.com/props#select-props} for the list of valid props
@@ -49,18 +44,15 @@ export type SelectOnChange<Option> = (
 const Select = <
   Option,
   Group extends GroupBase<Option> = GroupBase<Option>,
-  IsMulti extends boolean = false
+  IsMulti extends boolean = false,
 >({
   variant,
   ...rest
-}: Omit<Props<Option, IsMulti, Group>, "unstyled" | "menuPlacement"> & {
-  variant?: ThemingProps<"ReactSelect">["variant"]
-}) => {
-  const styles = useMultiStyleConfig("ReactSelect", {
-    variant,
-  })
+}: Omit<Props<Option, IsMulti, Group>, "unstyled" | "menuPlacement"> &
+  SelectVariants) => {
+  const styles = selectVariants({ variant })
   return (
-    <ReactSelectStylesProvider value={styles}>
+    <SelectStylesContext.Provider value={styles}>
       <ReactSelect
         components={components}
         styles={{
@@ -75,7 +67,7 @@ const Select = <
         unstyled
         menuPlacement="bottom"
       />
-    </ReactSelectStylesProvider>
+    </SelectStylesContext.Provider>
   )
 }
 
