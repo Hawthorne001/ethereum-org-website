@@ -1001,6 +1001,17 @@ const chains = [
     chain: "Muster",
   },
   {
+    name: "RISE",
+    infoURL: "https://risechain.com",
+    chainId: 4153,
+    nativeCurrency: {
+      name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    chain: "ETH",
+  },
+  {
     name: "MegaETH Mainnet",
     infoURL: "https://megaeth.com",
     chainId: 4326,
@@ -1798,6 +1809,17 @@ const chains = [
     chainId: 97477,
     nativeCurrency: {
       name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    chain: "ETH",
+  },
+  {
+    name: "Nillion Network",
+    infoURL: "https://nillion.com/",
+    chainId: 98875,
+    nativeCurrency: {
+      name: "Sepolia Ether",
       symbol: "ETH",
       decimals: 18,
     },
