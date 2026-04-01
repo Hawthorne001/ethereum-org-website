@@ -89,7 +89,7 @@
     "react-lite-youtube-embed": "^2.4.0",
     "react-select": "5.8.0",
     "reading-time": "^1.5.0",
-    "recharts": "^2.13.3",
+    "recharts": "^3.0.0",
     "remark-gfm": "^4.0.1",
     "sharp": "0.34.3",
     "swiper": "^12.1.2",
@@ -99,7 +99,7 @@
     "usehooks-ts": "^3.1.0",
     "vaul": "^1.0.0",
     "viem": "^2.23.3",
-    "wagmi": "^2.14.11",
+    "wagmi": "^3.0.0",
     "yaml-loader": "^0.8.0"
   },
   "devDependencies": {
