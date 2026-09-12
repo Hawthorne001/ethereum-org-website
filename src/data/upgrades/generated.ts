@@ -434,6 +434,16 @@ export const generated = {
           month: 9,
           day: 1,
         },
+        status: "complete",
+      },
+      {
+        kind: "devnet",
+        version: 11,
+        when: {
+          year: 2026,
+          month: 9,
+          day: 9,
+        },
         status: "live",
       },
       {
